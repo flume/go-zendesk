@@ -2,10 +2,11 @@ package zendesk
 
 import (
 	"fmt"
-	"github.com/google/go-querystring/query"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/google/go-querystring/query"
 )
 
 // Ticket represents a Zendesk Ticket.
@@ -51,6 +52,50 @@ type Ticket struct {
 	RemoveTags     []string `json:"remove_tags,omitempty"`
 }
 
+type BulkImportTicket struct {
+	AssigneeID          int                `json:"assignee_id"`
+	Comments            []Comments         `json:"comments"`
+	CollaboratorIds     []int              `json:"collaborator_ids"`
+	CreatedAt           time.Time          `json:"created_at"`
+	CustomFields        []CustomField      `json:"custom_fields"`
+	Description         string             `json:"description"`
+	DueAt               interface{}        `json:"due_at"`
+	ExternalID          string             `json:"external_id"`
+	FollowerIds         []int              `json:"follower_ids"`
+	GroupID             int                `json:"group_id"`
+	HasIncidents        bool               `json:"has_incidents"`
+	ID                  int                `json:"id"`
+	OrganizationID      int                `json:"organization_id"`
+	Priority            string             `json:"priority"`
+	ProblemID           int                `json:"problem_id"`
+	RawSubject          string             `json:"raw_subject"`
+	Recipient           string             `json:"recipient"`
+	RequesterID         int                `json:"requester_id"`
+	SatisfactionRating  SatisfactionRating `json:"satisfaction_rating"`
+	SharingAgreementIds []int              `json:"sharing_agreement_ids"`
+	Status              string             `json:"status"`
+	Subject             string             `json:"subject"`
+	SubmitterID         int                `json:"submitter_id"`
+	Tags                []string           `json:"tags"`
+	Type                string             `json:"type"`
+	UpdatedAt           time.Time          `json:"updated_at"`
+	URL                 string             `json:"url"`
+	Via                 Via                `json:"via"`
+}
+
+type Comments struct {
+	AuthorID  int       `json:"author_id"`
+	CreatedAt time.Time `json:"created_at,omitempty"`
+	Value     string    `json:"value"`
+	Public    bool      `json:"public,omitempty"`
+}
+
+type SatisfactionRating struct {
+	Comment string `json:"comment"`
+	ID      int    `json:"id"`
+	Score   string `json:"score"`
+}
+
 type CustomField struct {
 	ID    *int64      `json:"id"`
 	Value interface{} `json:"value"`
@@ -65,6 +110,17 @@ type Requester struct {
 	LocaleID *int    `json:"locale_id"`
 	Name     *string `json:"name,omitempty"`
 	Email    *string `json:"email,omitempty"`
+}
+
+type BulkPayload struct {
+	Ticket *BulkImportTicket `json:"ticket,omitempty"`
+}
+
+func (c *client) BulkImportTicket(bulk *BulkImportTicket) (*BulkImportTicket, error) {
+	in := &BulkPayload{Ticket: bulk}
+	out := new(BulkPayload)
+	err := c.post("/api/v2/imports/tickets.json", in, out)
+	return out.Ticket, err
 }
 
 func (c *client) ShowTicket(id int64) (*Ticket, error) {
