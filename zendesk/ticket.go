@@ -55,11 +55,11 @@ type Ticket struct {
 type BulkImportTicket struct {
 	AssigneeID          int                `json:"assignee_id"`
 	Comments            []Comments         `json:"comments"`
-	CollaboratorIds     []int              `json:"collaborator_ids"`
+	CollaboratorIDs     []int              `json:"collaborator_ids"`
 	CreatedAt           time.Time          `json:"created_at"`
 	CustomFields        []CustomField      `json:"custom_fields"`
 	Description         string             `json:"description"`
-	DueAt               interface{}        `json:"due_at"`
+	DueAt               time.Time          `json:"due_at"`
 	ExternalID          string             `json:"external_id"`
 	FollowerIds         []int              `json:"follower_ids"`
 	GroupID             int                `json:"group_id"`
@@ -78,6 +78,7 @@ type BulkImportTicket struct {
 	SubmitterID         int                `json:"submitter_id"`
 	Tags                []string           `json:"tags"`
 	Type                string             `json:"type"`
+	SolvedAt            time.Time          `json:"solve_at"`
 	UpdatedAt           time.Time          `json:"updated_at"`
 	URL                 string             `json:"url"`
 	Via                 Via                `json:"via"`
