@@ -54,18 +54,18 @@ type Ticket struct {
 
 type BulkImportTicket struct {
 	AssigneeID          int                 `json:"assignee_id,omitempty"`
-	Comments            []Comments          `json:"comments,omitempty"`
+	Comments            []TicketComment     `json:"comments,omitempty"`
 	CollaboratorIDs     []int               `json:"collaborator_ids,omitempty"`
 	CreatedAt           time.Time           `json:"created_at,omitempty"`
 	CustomFields        []CustomField       `json:"custom_fields,omitempty"`
 	Description         string              `json:"description,omitempty"`
-	DueAt               time.Time           `json:"due_at,omitempty"`
+	DueAt               *time.Time          `json:"due_at,omitempty"`
 	ExternalID          string              `json:"external_id,omitempty"`
 	FollowerIds         []int               `json:"follower_ids,omitempty"`
 	GroupID             int                 `json:"group_id,omitempty"`
 	HasIncidents        bool                `json:"has_incidents,omitempty"`
 	ID                  int                 `json:"id,omitempty"`
-	OrganizationID      int                 `json:"organization_id,omitempty"`
+	OrganizationID      *int64              `json:"organization_id,omitempty"`
 	Priority            string              `json:"priority,omitempty"`
 	ProblemID           int                 `json:"problem_id,omitempty"`
 	RawSubject          string              `json:"raw_subject,omitempty"`
@@ -82,13 +82,6 @@ type BulkImportTicket struct {
 	UpdatedAt           time.Time           `json:"updated_at,omitempty"`
 	URL                 string              `json:"url,omitempty"`
 	Via                 Via                 `json:"via,omitempty"`
-}
-
-type Comments struct {
-	AuthorID  int       `json:"author_id"`
-	CreatedAt time.Time `json:"created_at,omitempty"`
-	Value     string    `json:"value"`
-	Public    bool      `json:"public,omitempty"`
 }
 
 type SatisfactionRating struct {
