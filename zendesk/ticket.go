@@ -53,7 +53,7 @@ type Ticket struct {
 }
 
 type BulkImportTicket struct {
-	AssigneeID          int                 `json:"assignee_id,omitempty"`
+	AssigneeID          *int64              `json:"assignee_id,omitempty"`
 	Comments            []TicketComment     `json:"comments,omitempty"`
 	CollaboratorIDs     []int               `json:"collaborator_ids,omitempty"`
 	CreatedAt           time.Time           `json:"created_at,omitempty"`
@@ -62,7 +62,7 @@ type BulkImportTicket struct {
 	DueAt               *time.Time          `json:"due_at,omitempty"`
 	ExternalID          string              `json:"external_id,omitempty"`
 	FollowerIds         []int               `json:"follower_ids,omitempty"`
-	GroupID             int                 `json:"group_id,omitempty"`
+	GroupID             *int64              `json:"group_id,omitempty"`
 	HasIncidents        bool                `json:"has_incidents,omitempty"`
 	ID                  int                 `json:"id,omitempty"`
 	OrganizationID      *int64              `json:"organization_id,omitempty"`
@@ -70,7 +70,7 @@ type BulkImportTicket struct {
 	ProblemID           int                 `json:"problem_id,omitempty"`
 	RawSubject          string              `json:"raw_subject,omitempty"`
 	Recipient           string              `json:"recipient,omitempty"`
-	RequesterID         int                 `json:"requester_id,omitempty"`
+	RequesterID         *int64              `json:"requester_id,omitempty"`
 	SatisfactionRating  *SatisfactionRating `json:"satisfaction_rating,omitempty"`
 	SharingAgreementIds []int               `json:"sharing_agreement_ids,omitempty"`
 	Status              string              `json:"status,omitempty"`
